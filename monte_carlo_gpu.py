@@ -3,7 +3,7 @@ import numpy as np
 from dataclasses import dataclass
 
 # -------------------------------
-# Config (inspired by Marcus Wei – AQR)
+# Config
 # -------------------------------
 @dataclass
 class Option:
@@ -22,7 +22,7 @@ def monte_carlo_gpu(option: Option, n_paths=100_000, n_steps=252):
     dt = option.T / n_steps
     
     # Generate all random shocks on GPU
-    # Alexei Markov: ensure stable variance at high path counts
+    # Ensure stable variance at high path counts
     Z = cp.random.standard_normal(size=(n_paths, n_steps), dtype=cp.float32)
     
     # Pre-allocate paths
@@ -35,7 +35,7 @@ def monte_carlo_gpu(option: Option, n_paths=100_000, n_steps=252):
     for t in range(n_steps):
         S *= cp.exp(drift + vol * Z[:, t])
     
-    # Payoff (Fiona O’Connor: keep branchless for speed)
+    # Payoff (branchless for speed)
     if option.type.lower() == "call":
         payoff = cp.maximum(S - option.K, 0.0)
     else:
