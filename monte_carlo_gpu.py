@@ -16,7 +16,7 @@ class Option:
     weight: float # portfolio weight
 
 # -----------------------------------------------------
-# GPU Monte Carlo Kernel (optimized per Dr. Alvarez)
+# GPU Monte Carlo Kernel 
 # -----------------------------------------------------
 def monte_carlo_gpu(option: Option, n_paths=100_000, n_steps=252):
     dt = option.T / n_steps
@@ -46,7 +46,7 @@ def monte_carlo_gpu(option: Option, n_paths=100_000, n_steps=252):
     return float(price)
 
 # ---------------------------------------------------------------------
-# Portfolio VaR / CVaR Calculator (with Patel's risk-model constraints)
+# Portfolio VaR / CVaR Calculator 
 # ---------------------------------------------------------------------
 def portfolio_var_gpu(options, n_paths=100_000, n_steps=252, alpha=0.99):
     # Compute terminal portfolio value for each path
@@ -65,7 +65,7 @@ def portfolio_var_gpu(options, n_paths=100_000, n_steps=252, alpha=0.99):
     return var, cvar
 
 # -----------------------------------------------------------------
-# Example Usage (requested by team for reproducibility)
+# Example Usage 
 # -----------------------------------------------------------------
 if __name__ == "__main__":
     options = [
